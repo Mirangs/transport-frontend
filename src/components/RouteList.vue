@@ -1,6 +1,6 @@
 <template>
   <ul class="route-list">
-    <li v-for="routeItem in routeList" :key="routeItem">
+    <li class="route-list-item" v-for="routeItem in routeList" :key="routeItem.id">
       <RouteItem
         :originCity="routeItem.originCity"
         :destinationCity="routeItem.destinationCity"
@@ -15,6 +15,29 @@
     </li>
   </ul>
 </template>
+
+<style lang="scss" scoped>
+@import '../assets/scss/mixins.scss';
+.route-list {
+  @include reset-list();
+  display: flex;
+  flex-wrap: wrap;
+
+  .route-list-item {
+    flex-basis: 100%;
+    margin-bottom: 25px;
+    &:nth-of-type(2n) {
+      margin-left: 2%;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .route-list-item {
+      flex-basis: 48%;
+    }
+  }
+}
+</style>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'

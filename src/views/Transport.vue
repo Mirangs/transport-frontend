@@ -1,11 +1,9 @@
 <template>
-  <div class="transport">
-    <h1>This is a transport page</h1>
-
-    <p v-if="loading">Loading...</p>
+  <el-row v-loading="loading" class="transport">
+    <h1>Transports</h1>
     <p v-if="error">{{ error }}</p>
     <TransportList v-if="transports.length" :transportList="transports" />
-  </div>
+  </el-row>
 </template>
 
 <script lang="ts">

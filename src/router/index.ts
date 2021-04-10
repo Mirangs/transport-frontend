@@ -13,12 +13,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/transport',
     name: 'Transport',
-    component: () => import(/* .webpackChunkName: "transport" */ '../views/Transport.vue'),
+    component: () => import(/* webpackChunkName: "transport" */ '../views/Transport.vue'),
   },
   {
     path: '/route',
     name: 'Route',
-    component: () => import(/* .webpackChunkName: "route" */ '../views/Route.vue'),
+    component: () => import(/* webpackChunkName: "route" */ '../views/Route.vue'),
   },
 ]
 

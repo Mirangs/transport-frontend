@@ -1,10 +1,9 @@
 <template>
-  <div class="route">
-    <h1>This is an route page</h1>
-    <p v-if="loading">Loading...</p>
+  <el-row v-loading="loading" class="route">
+    <h2>Routes</h2>
     <p v-if="error">{{ error }}</p>
     <RouteList :routeList="routes" />
-  </div>
+  </el-row>
 </template>
 
 <script lang="ts">

@@ -1,33 +1,61 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/transport">Transports</router-link> |
+    <el-header>
+      <router-link to="/" exact>Home</router-link>
+      <router-link to="/transport">Transports</router-link>
       <router-link to="/route">Routes</router-link>
-    </div>
-    <router-view />
+    </el-header>
+    <el-main>
+      <router-view />
+    </el-main>
   </div>
 </template>
 
 <style lang="scss">
+@import './assets/scss/variables.scss';
+body {
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: $main-text-color;
+  min-height: 100vh;
 }
-
-#nav {
-  padding: 30px;
+.el-header {
+  text-align: center;
+  background-color: $main-bg-color;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    display: inline-block;
+    padding: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
 
-    &.router-link-exact-active {
-      color: #42b983;
+    &:hover {
+      color: $main-text-color;
     }
+
+    &:active {
+      color: lighten($main-text-color, 25);
+    }
+  }
+
+  .router-link-active {
+    background-color: #ffffff;
+    color: $main-text-color;
   }
 }
 </style>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class App extends Vue {}
+</script>

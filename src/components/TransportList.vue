@@ -1,6 +1,6 @@
 <template>
   <ul class="transport-list">
-    <li v-for="transportItem in transportList" :key="transportItem">
+    <li class="transport-list-item" v-for="transportItem in transportList" :key="transportItem.id">
       <TransportItem
         :model="transportItem.model"
         :licensePlate="transportItem.licensePlate"
@@ -12,6 +12,30 @@
     </li>
   </ul>
 </template>
+
+<style lang="scss" scoped>
+@import '../assets/scss/mixins.scss';
+.transport-list {
+  @include reset-list();
+  display: flex;
+  flex-wrap: wrap;
+
+  .transport-list-item {
+    flex-basis: 100%;
+    margin-bottom: 25px;
+
+    &:nth-of-type(2n) {
+      margin-left: 2%;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .transport-list-item {
+      flex-basis: 48%;
+    }
+  }
+}
+</style>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'

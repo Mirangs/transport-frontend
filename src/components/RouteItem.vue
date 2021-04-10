@@ -1,16 +1,32 @@
 <template>
-  <section class="route-item">
-    <p>Origin city: {{ originCity }}</p>
-    <p>Destination city: {{ destinationCity }}</p>
-    <p>Distance: {{ distance }} km</p>
-    <p>DepartmentDate: {{ new Date(departmentDate).toLocaleString() }}</p>
-    <p v-if="neededTransportType">Needed Transport Type: {{ neededTransportType }}</p>
-    <p>Estimated Revenue: {{ estimatedRevenue }}$</p>
-    <p v-if="transport">Transport: {{ transport.model }}</p>
-    <p>Route Status: {{ routeStatus }}</p>
-    <p v-if="fulfillmentDate">Fulfillment Date: {{ new Date(fulfillmentDate).toLocaleString() }}</p>
-  </section>
+  <el-card class="route-item">
+    <el-row class="item-header" type="flex" align="center">
+      <el-col :span="18">
+        <h2 class="item-title">{{ originCity }} - {{ destinationCity }}</h2>
+      </el-col>
+      <el-col class="util-block" :span="6">
+        <el-button class="util-button" icon="el-icon-edit"></el-button>
+        <el-button class="util-button" type="danger" icon="el-icon-delete"></el-button>
+      </el-col>
+    </el-row>
+    <p><b>Distance:</b> {{ distance }} km</p>
+    <p><b>DepartmentDate:</b> {{ new Date(departmentDate).toLocaleString() }}</p>
+    <p><b>Estimated Revenue:</b> {{ estimatedRevenue }}$</p>
+    <p>
+      <b>Needed Transport Type:</b> {{ neededTransportType ? neededTransportType.name : 'None' }}
+    </p>
+    <p><b>Transport:</b> {{ transport ? transport.model : 'None' }}</p>
+    <p><b>Route Status:</b> {{ routeStatus }}</p>
+    <p>
+      <b>Fulfillment Date:</b>
+      {{ fulfillmentDate ? new Date(fulfillmentDate).toLocaleString() : 'None' }}
+    </p>
+  </el-card>
 </template>
+
+<style lang="scss" scoped>
+@import '../assets/scss/default-card.scss';
+</style>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
