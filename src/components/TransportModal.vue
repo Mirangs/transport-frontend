@@ -114,14 +114,15 @@ export default class TransportModal extends Vue {
   }
 
   async onFormSubmit(): Promise<void> {
-    this.$refs.transportForm.validate((valid: boolean) => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
+    ;(this.$refs.transportForm as Vue & { validate: any }).validate((valid: boolean) => {
       if (!valid) {
         return false
       }
 
       const funcToExecute = this.isUpdating ? this.updateTransport : this.createTransport
       funcToExecute(this.form)
-      this.$refs.routeForm.resetFields()
+      ;(this.$refs.routeForm as Vue & { resetFields: () => void }).resetFields()
       return true
     })
   }

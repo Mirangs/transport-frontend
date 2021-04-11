@@ -80,7 +80,7 @@ export default class Transport extends Vue {
     this.error = null
     this.loading = true
     try {
-      const { data } = await axios.get('http://localhost:3000/api/v1/transport')
+      const { data } = await axios.get('/transport')
       this.transports = data
     } catch (err) {
       this.error = err.toString()
@@ -93,7 +93,7 @@ export default class Transport extends Vue {
     this.loading = true
     this.error = null
     try {
-      const { data } = await axios.get(`http://localhost:3000/api/v1/transport/types`)
+      const { data } = await axios.get(`/transport/types`)
       this.transportTypes = data
     } catch (err) {
       this.error = err.toString()
@@ -106,7 +106,7 @@ export default class Transport extends Vue {
     this.loading = true
     this.error = null
     try {
-      const { data } = await axios.get(`http://localhost:3000/api/v1/transport/statuses`)
+      const { data } = await axios.get(`/transport/statuses`)
 
       this.transportStatuses = data
     } catch (err) {
@@ -130,9 +130,7 @@ export default class Transport extends Vue {
 
       this.loading = true
       try {
-        const { data } = await axios.delete(
-          `http://localhost:3000/api/v1/transport/${transport.id}`
-        )
+        const { data } = await axios.delete(`/transport/${transport.id}`)
 
         await this.$message({
           type: 'success',
@@ -173,7 +171,7 @@ export default class Transport extends Vue {
 
     try {
       const body = JSON.stringify(transport)
-      await axios.post(`http://localhost:3000/api/v1/transport`, body, {
+      await axios.post(`/transport`, body, {
         headers: { 'Content-Type': 'application/json' },
       })
       this.$message({ type: 'success', message: `Successfully created transport` })
@@ -192,7 +190,7 @@ export default class Transport extends Vue {
 
     try {
       const body = JSON.stringify(transport)
-      await axios.patch(`http://localhost:3000/api/v1/transport/${transport.id}`, body, {
+      await axios.patch(`/transport/${transport.id}`, body, {
         headers: { 'Content-Type': 'application/json' },
       })
       this.$message({ type: 'success', message: `Successfully updated transport` })

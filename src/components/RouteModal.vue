@@ -83,7 +83,6 @@
 
 <script lang="ts">
 import axios from 'axios'
-import qs from 'query-string'
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
 @Component
@@ -138,7 +137,7 @@ export default class RouteModal extends Vue {
   }
 
   @Watch('route')
-  onRouteChanged() {
+  onRouteChanged(): void {
     this.isUpdating = !!this.route && !!Object.keys(this.route).length
     this.title = this.isUpdating
       ? `Update route ${this.route.originCity}-${this.route.destinationCity}`
@@ -158,9 +157,7 @@ export default class RouteModal extends Vue {
     }
 
     try {
-      const { data } = await axios.get(
-        `http://localhost:3000/api/v1/transport?where=${JSON.stringify(params)}`
-      )
+      const { data } = await axios.get(`transport?where=${JSON.stringify(params)}`)
 
       this.transports = data
     } catch (err) {
@@ -170,7 +167,7 @@ export default class RouteModal extends Vue {
   }
 
   @Watch('form.neededTransportTypeId')
-  async onTransportTypeChanged(value) {
+  async onTransportTypeChanged(value: string): Promise<void> {
     let params = {}
     if (value) {
       params = { transportTypeId: value }
@@ -179,14 +176,15 @@ export default class RouteModal extends Vue {
   }
 
   async onFormSubmit(): Promise<void> {
-    this.$refs.routeForm.validate((valid: boolean) => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
+    ;(this.$refs.routeForm as Vue & { validate: any }).validate((valid: boolean) => {
       if (!valid) {
         return false
       }
 
       const funcToExecute = this.isUpdating ? this.updateRoute : this.createRoute
       funcToExecute(this.form)
-      this.$refs.routeForm.resetFields()
+      ;(this.$refs.routeForm as Vue & { resetFields: () => void }).resetFields()
       return true
     })
   }

@@ -80,7 +80,7 @@ export default class Route extends Vue {
     this.error = null
     this.loading = true
     try {
-      const { data } = await axios.get('http://localhost:3000/api/v1/route')
+      const { data } = await axios.get('/route')
       this.routes = data
     } catch (err) {
       this.error = err.toString()
@@ -99,7 +99,7 @@ export default class Route extends Vue {
 
       this.loading = true
       try {
-        await axios.delete(`http://localhost:3000/api/v1/route/${route.id}`)
+        await axios.delete(`route/${route.id}`)
         await this.$message({
           type: 'success',
           message: `Successfully deleted ${route.name}`,
@@ -137,7 +137,7 @@ export default class Route extends Vue {
     this.loading = true
     this.error = null
     try {
-      const { data } = await axios.get(`http://localhost:3000/api/v1/transport/types`)
+      const { data } = await axios.get(`/transport/types`)
       this.transportTypes = data
     } catch (err) {
       this.error = err.toString()
@@ -150,7 +150,7 @@ export default class Route extends Vue {
     this.loading = true
     this.error = null
     try {
-      const { data } = await axios.get(`http://localhost:3000/api/v1/route/statuses`)
+      const { data } = await axios.get(`/route/statuses`)
 
       this.routeStatuses = data
     } catch (err) {
@@ -166,7 +166,7 @@ export default class Route extends Vue {
 
     try {
       const body = JSON.stringify(route)
-      await axios.post(`http://localhost:3000/api/v1/route`, body, {
+      await axios.post(`/route`, body, {
         headers: { 'Content-Type': 'application/json' },
       })
 
@@ -186,11 +186,11 @@ export default class Route extends Vue {
 
     try {
       const body = JSON.stringify(route)
-      await axios.patch(`http://localhost:3000/api/v1/route/${route.id}`, body, {
+      await axios.patch(`/route/${route.id}`, body, {
         headers: { 'Content-Type': 'application/json' },
       })
       if (route.transportId) {
-        await axios.post(`http://localhost:3000/api/v1/transport/busy/${route.transportId}`)
+        await axios.post(`/transport/busy/${route.transportId}`)
       }
       this.$message({ type: 'success', message: `Successfully updated route` })
       this.closeRouteModal()
