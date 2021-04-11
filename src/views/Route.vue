@@ -169,6 +169,7 @@ export default class Route extends Vue {
       await axios.post(`http://localhost:3000/api/v1/route`, body, {
         headers: { 'Content-Type': 'application/json' },
       })
+
       this.$message({ type: 'success', message: `Successfully created route` })
       this.closeRouteModal()
       this.fetchRoutes()
@@ -188,6 +189,9 @@ export default class Route extends Vue {
       await axios.patch(`http://localhost:3000/api/v1/route/${route.id}`, body, {
         headers: { 'Content-Type': 'application/json' },
       })
+      if (route.transportId) {
+        await axios.post(`http://localhost:3000/api/v1/transport/busy/${route.transportId}`)
+      }
       this.$message({ type: 'success', message: `Successfully updated route` })
       this.closeRouteModal()
       this.fetchRoutes()
