@@ -2,12 +2,15 @@
   <ul class="transport-list">
     <li class="transport-list-item" v-for="transportItem in transportList" :key="transportItem.id">
       <TransportItem
+        :id="transportItem.id"
         :model="transportItem.model"
         :licensePlate="transportItem.licensePlate"
         :purchaseDate="transportItem.purchaseDate"
         :mileage="transportItem.mileage"
-        :status="transportItem.status.name"
-        :transportType="transportItem.transportType.name"
+        :status="transportItem.status"
+        :transportType="transportItem.transportType"
+        @onTransportDelete="onTransportDelete"
+        @onTransportUpdate="onTransportUpdate"
       />
     </li>
   </ul>
@@ -19,6 +22,7 @@
   @include reset-list();
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 
   .transport-list-item {
     flex-basis: 100%;
@@ -48,5 +52,15 @@ import TransportItem from './TransportItem.vue'
 })
 export default class TransportList extends Vue {
   @Prop({ default: [] }) readonly transportList!: any[]
+
+  @Prop() readonly confirmDelete!: (transport: any) => void
+
+  onTransportDelete(transport: any) {
+    this.$emit('onTransportDelete', transport)
+  }
+
+  onTransportUpdate(transport: any) {
+    this.$emit('onTransportUpdate', transport)
+  }
 }
 </script>

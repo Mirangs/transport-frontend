@@ -2,6 +2,9 @@
   <ul class="route-list">
     <li class="route-list-item" v-for="routeItem in routeList" :key="routeItem.id">
       <RouteItem
+        @onRouteDelete="onRouteDelete"
+        @onRouteUpdate="onRouteUpdate"
+        :id="routeItem.id"
         :originCity="routeItem.originCity"
         :destinationCity="routeItem.destinationCity"
         :distance="routeItem.distance"
@@ -9,8 +12,9 @@
         :neededTransportType="routeItem.neededTransportType"
         :estimatedRevenue="routeItem.estimatedRevenue"
         :transport="routeItem.transport"
-        :routeStatus="routeItem.routeStatus.name"
+        :routeStatus="routeItem.routeStatus"
         :fulfillmentDate="routeItem.fulfillmentDate"
+        :transportTypes="transportTypes"
       />
     </li>
   </ul>
@@ -22,6 +26,7 @@
   @include reset-list();
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 
   .route-list-item {
     flex-basis: 100%;
@@ -50,5 +55,15 @@ import RouteItem from './RouteItem.vue'
 })
 export default class RouteList extends Vue {
   @Prop({ default: [] }) readonly routeList!: any[]
+
+  @Prop({ default: [] }) readonly transportTypes!: any[]
+
+  onRouteDelete(route: any) {
+    this.$emit('onRouteDelete', route)
+  }
+
+  onRouteUpdate(route: any) {
+    this.$emit('onRouteUpdate', route)
+  }
 }
 </script>
